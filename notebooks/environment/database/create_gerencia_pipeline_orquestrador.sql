@@ -17,8 +17,7 @@ CREATE TABLE gerencia.pipeline_orquestrador (
     descricao string,
     dataset string NOT NULL,
     parametro string NOT NULL,
-    flg_ativo boolean NOT NULL,
-    dt_atualizacao timestamp NOT NULL 
+    flg_ativo boolean NOT NULL,dt_atualizacao timestamp NOT NULL 
     
 )
 USING DELTA

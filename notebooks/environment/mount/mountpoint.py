@@ -30,11 +30,11 @@ dbutils.fs.mount(
 
 # COMMAND ----------
 
-# MAGIC %fs ls "/mnt/raw"
+# MAGIC %fs ls "/mnt/sandbox"
 
 # COMMAND ----------
 
-dbutils.fs.unmount( f"/mnt/raw/")
+dbutils.fs.unmount( f"/mnt/transient/")
 
 # COMMAND ----------
 
@@ -52,7 +52,7 @@ config =  {"fs.azure.account.key.dlsbootcampprdwsy.blob.core.windows.net" :dbuti
 
 # DBTITLE 1,Lista de diretórios do lake 
 #apenas os diretórios que vamos interagir
-diretorios = ['raw','transient']
+diretorios = ['transient','raw','delta','sandbox','gerencia']
 
 # COMMAND ----------
 
