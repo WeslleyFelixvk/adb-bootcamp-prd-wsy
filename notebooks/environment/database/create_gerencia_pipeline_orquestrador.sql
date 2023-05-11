@@ -14,6 +14,7 @@ CREATE TABLE gerencia.pipeline_orquestrador (
 
     etapa string NOT NULL,
     chave_entidade string NOT NULL,
+    
     descricao string,
     dataset string NOT NULL,
     parametro string NOT NULL,
@@ -192,34 +193,47 @@ VALUES
 
 -- COMMAND ----------
 
---INSERT INTO gerencia.pipeline_orquestrador
---(
---     
---       etapa,
---       chave_entidade,
---       descricao,
---       dataset,
---       parametro,
---       flg_ativo,
---       dt_atualizacao
---)
---VALUES 
---(      
---      
---       'RB',
---       'sql_server.core_financeiro.telefone',
---       'Este Job tem como objetivo carregar a entidade: sqlserver.core_financeiro.telefone',
---       'ds_sqlserver_corefinanceiro',
---       '{
---            "container_destino": "raw",
---            "diretorio_destino": "sqlserver/core_financeiro",
---            "esquema_origem": "cliente",
---            "tabela_origem": "telefone",
---            "select_origem": "select id_telefone, nr_ddd, nr_telefone, id_login from cliente.telefone"
---        }',
---       'true',
---        now()
---)
+INSERT INTO gerencia.pipeline_orquestrador
+(
+     
+       etapa,
+       chave_entidade,
+       descricao,
+       dataset,
+       parametro,
+       flg_ativo,
+       dt_atualizacao
+)
+VALUES 
+(      
+      
+       'RB',
+       'sql_server.core_financeiro.telefone',
+       'Este Job tem como objetivo carregar a entidade: sqlserver.core_financeiro.telefone',
+       'ds_sqlserver_corefinanceiro',
+       '{
+            "container_destino": "raw",
+            "diretorio_destino": "sqlserver/core_financeiro",
+            "esquema_origem": "cliente",
+            "tabela_origem": "telefone",
+            "select_origem": "select id_telefone, nr_ddd, nr_telefone from cliente.telefone"
+        }',
+       'true',
+        now()
+)
+
+-- COMMAND ----------
+
+update gerencia.pipeline_orquestrador
+set parametro = '{
+            "container_destino": "raw",
+            "diretorio_destino": "sqlserver/core_financeiro",
+            "esquema_origem": "cliente",
+            "tabela_origem": "telefone",
+            "select_origem": "select id_telefone, nr_ddd, nr_telefone,id_login from cliente.telefone"
+        }'
+where chave_entidade = 'sql_server.core_financeiro.telefone'
+
 
 -- COMMAND ----------
 
@@ -275,3 +289,10 @@ VALUES
 -- COMMAND ----------
 
 select * from gerencia.pipeline_orquestrador
+
+-- COMMAND ----------
+
+
+update gerencia.pipeline_orquestrador
+set flg_ativo = 'false'
+where chave_entidade = 'cliente_conta.perfil_financeiro.conta'

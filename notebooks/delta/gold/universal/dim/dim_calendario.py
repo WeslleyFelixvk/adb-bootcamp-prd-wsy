@@ -35,6 +35,10 @@ df_calendario = df_calendario.withColumn(
 
 # COMMAND ----------
 
+df_calendario.display()
+
+# COMMAND ----------
+
 df_calendario = df_calendario.drop('id')
 df_calendario = df_calendario.withColumn('ANO' , f.date_format(f.col('date'), 'yyyy').cast(IntegerType()))
 df_calendario = df_calendario.withColumn('MES' , f.date_format(f.col('date'), 'MM').cast(IntegerType()))
